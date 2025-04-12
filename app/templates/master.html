@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html class="no-js" itemscope itemtype="http://schema.org/WebPage">
+<head>
+    {% block head %}
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <meta name="title" content="Page TITLE"/>
+    <meta name="description" content="Page META-DESCRIPTION"/>
+    <title>My GPT</title>
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon">
+    
+    <!-- CSS LIBs-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/silktide-consent-manager.css') }}">
+
+    <!-- JS LIBs -->
+    <script src="{{ url_for('static', filename='js/silktide-consent-manager.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/events.js') }}"></script>
+    {% endblock %}
+</head>
+<body>
+    <div class="container">
+    <div class="header">
+    <header>
+        <h1>Welcome to MyGPT
+    </header>
+    <nav>
+        <div class="login">
+        {% if name %}
+            <a href="logout">Logout</a> ⇲
+        {% else %}
+            <a href="login" class="login-btn ">Login</a>
+        {% endif %}
+        </div>
+    </nav>
+    </div>
+    <main class="content">
+        <div>
+        <!--
+        <p>Hello {% if name %}{{name}}{% endif %}</p>
+        <hr/>
+        -->
+    <div class="post">
+        <div class="info">
+            <h2>Interface pour saisir du texte</h2>
+            <!-- <p>Date et heure de publication</p> -->
+        </div>
+        <div>
+            <textarea id="cadre-texte" rows="5" placeholder="Your text Here..."></textarea>
+        </div>
+        <button id="bouton-validated" class="action-btn">Envoyer</button>
+        <span id="loader" style="display: none;"></span>
+    </div>
+    
+    <div class="comments" id="comments">
+        <!-- Commentaires -->
+
+    </div>
+
+
+        <hr/>
+        </div>
+    </main>
+    {% block footer %}
+    <footer>
+        🔒 {% if session %} Session Name: {{session}} {% endif %}
+        &copy; 2025 My Python Web Development Website
+    </footer>
+    {% endblock %}
+    </div>
+    <!-- JAVA SCRIPT -->
+    
+    <script>
+        loadEvents();
+        //loadBanner();
+    </script>
+
+</body>
+</html>
