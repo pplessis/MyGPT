@@ -75,12 +75,14 @@ def chat():
         message = request.json.get('message', '')
 
     print(f'Message POST: {message}' )
-    
+
     # Launch the chat with GPT
     myGPT = GPT.ApiGPT()
-    myGPT.api_url = 'http://walfred.local:11434/api/generate'
+    #myGPT.api_url = 'http://walfred.local:11434/api/generate'
     #myGPT.api_url = 'http://127.0.0.1:11434/api/generate'
-    
+    #myGPT.api_url = 'http://10.0.0.222:11434/api/generate'
+    myGPT.api_url = 'http://192.168.1.40:11434/api/generate'
+
     myGPT.model = "llama3.2"
 
     myGPT.temperature = 1
@@ -91,6 +93,8 @@ def chat():
 
     response = myGPT.GetResponse(values, '$REQUEST$')
     
+    print(f'Message RESPONSE: {response}' )
+
     #Manage output
     if message:
         return {'status': 'success', 'time': date, 'message': response}, 200

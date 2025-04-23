@@ -74,12 +74,12 @@ top_k (optional): Limits token selection to the top-k most probable tokens.
         currentPrompt = ''
         returnValue = ''
         response = ''
-        
+
         if len(MyPrompt) == 0 :
            currentPrompt = self.DefinePrompt( Variables = MyVariables, Prompt=self.promptTemplate)
         else:
            currentPrompt = self.DefinePrompt(Variables = MyVariables, Prompt=MyPrompt)
-        
+
         try:
             data = self.GetOllama(currentPrompt)
             self.messagesHistory.append(data)

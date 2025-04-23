@@ -441,6 +441,24 @@ class Print:
         #print ( f'Country: {PColors.GREEN}{Country.value}{PColors.ENDC} | Execution Environnement: {PColors.PURPLE}{Environnement.value}{PColors.ENDC}')
         print (pattern)
 
+    # ######################
+    @staticmethod
+    def selectAValueInList (Values:list[str], DefaultValue = None) -> list[str]:
+        returnValue = list()
+        prompt = 'Select a value between :\n'
+        aListedValue = f'{PColors.YELLOW}({{0}}){PColors.ENDC} {{1}}\n'
+        question = f'{PColors.BOLD}Select a value between{PColors.ENDC} ?'
+        questionWithDefault = f'{PColors.BOLD}Select a value between [{0}]{PColors.ENDC} ?'
+        
+        #List options
+        for index, value in enumerate(Values):
+            prompt += aListedValue.format(index, value)
+        
+        prompt += questionWithDefault.format( '' )
+        print(prompt, end = '')
+        
+        return returnValue
+
 # #############################################
 class Timer:
     @staticmethod
@@ -576,3 +594,24 @@ class Io:
                 returnValue = f.read()
 
         return returnValue
+    # ######################
+    @staticmethod
+    def listFilesInFolder (Folder:str, Extension=None) -> list:
+        """
+        List all files in a folder with a specific extension.
+        Args:
+            Folder (str):
+            Extension (str, optional): _description_. Defaults to None.
+
+        Returns:
+            list: All Files in the folder with the extension.
+        """
+
+        import os
+
+        files = []
+        for filename in os.listdir(Folder):
+            if filename.endswith( str(Extension) ) or Extension == None:
+                files.append(filename)
+
+        return files
