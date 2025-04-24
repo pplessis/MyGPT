@@ -1,0 +1,3 @@
+[submodule "app/libs"]
+	path = app/libs
+	url = https://pplessis.visualstudio.com/DefaultCollection/libs/_git/libs
