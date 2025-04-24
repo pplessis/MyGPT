@@ -7,9 +7,9 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired, Length
 from datetime import datetime as DT
 
-from app       import app
-from .libs     import  utils
-from .libs     import apiGpt as GPT
+from app                    import app
+from .src                   import apiGpt as GPT
+from .libs.src.utils        import Print
 
 #SEE: https://python-adv-web-apps.readthedocs.io/en/latest/flask_forms.html
 
@@ -70,11 +70,12 @@ def index():
 @app.route('/chat', methods=['POST'])
 def chat():
     date =  DT.now().strftime('%Y-%m-%d %H:%M:%S')
+    response = None
     # Manage input
     if (request.method == 'POST' and request.is_json and request.json != None):
         message = request.json.get('message', '')
 
-    print(f'Message POST: {message}' )
+    Print.log(f'Message POST: {message}' , 5)
 
     # Launch the chat with GPT
     myGPT = GPT.ApiGPT()
@@ -92,12 +93,14 @@ def chat():
     values = {'$REQUEST$' : message}
 
     response = myGPT.GetResponse(values, '$REQUEST$')
-    
-    print(f'Message RESPONSE: {response}' )
+
+
+    Print.log (f'Message RESPONSE: {response}' , 5)
+
 
     #Manage output
-    if message:
+    if response != None and len(response) > 0:
         return {'status': 'success', 'time': date, 'message': response}, 200
-    
+
     return {'status': 'error', 'message': 'No message provided'}, 400
 

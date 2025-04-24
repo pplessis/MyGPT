@@ -63,6 +63,7 @@ function loadEvents () {
   let validBtn = document.getElementById('bouton-validated');
   let loader = document.getElementById('loader');
   let comments = document.getElementById('comments');
+  let comment = ''
 
   validBtn.addEventListener('click', async () => {
       loader.style.display = 'block';
@@ -83,20 +84,22 @@ function loadEvents () {
           console.log("Reponse /chat:", responseData);
           // Récupération du contenu de la réponse
 
-          let comment = handleChatResponse(responseData, cadreTexte.value.trim())
+          comment = handleChatResponse(responseData, cadreTexte.value.trim())
 
           console.log(comment.outerHTML);           // Affiche le contenu du commentaire créé
-          comments.appendChild(comment)
 
           // Vider le champ de texte
           document.getElementById('cadre-texte').value = '';
 
         } else {
           console.error('Erreur:', response.status, response.statusText);
+          const responseData = await response.json();
+          comment = handleChatResponse(responseData, cadreTexte.value.trim())
         }
       } catch (erreur) {
         console.error(erreur);
       } finally {
+        comments.appendChild(comment)
         loader.style.display = 'none';
       }
     });
